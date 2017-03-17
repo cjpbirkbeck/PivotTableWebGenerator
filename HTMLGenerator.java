@@ -112,11 +112,11 @@ public class HTMLGenerator {
 		html.add("tr:nth-child(even){background-color: #f2f2f2}");
 		html.add("\t\t</style>");
 		
-		// End of internal style sheat.
+		// End of internal style sheet.
 		
 		html.add("\t</head>");
 		html.add("\t<body>");
-		html.add("\t\t<h1>" + textTitle + "</h1>");
+		html.add("\t\t<center><h1>" + textTitle + "</h1></center>");
 	}
 	
 	/**
@@ -126,7 +126,7 @@ public class HTMLGenerator {
 	 * @param source
 	 */
 	private void generateTable(Queue<String> html, String[][] source) {
-		// Makes an internal horizonal scroll bar if the page overflows.
+		// Makes an internal horizontal scroll bar if the page overflows.
 		html.add("\t\t\t<div style=\"overflow-x:auto;\">");
 		html.add("\t\t\t<table>");
 		for (int i = 0; i < source.length; i++) {

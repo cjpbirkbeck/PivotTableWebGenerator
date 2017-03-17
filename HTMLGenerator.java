@@ -39,6 +39,11 @@ public class HTMLGenerator {
 		textTitle = title;
 	}
 	
+	public HTMLGenerator(String newPageTitle, String newTextTitle) {
+		pageTitle = newPageTitle;
+		textTitle = newTextTitle;
+	}
+	
 	/**
 	 * @return the pageTitle
 	 */

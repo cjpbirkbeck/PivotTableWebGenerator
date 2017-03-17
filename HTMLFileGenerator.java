@@ -25,7 +25,12 @@ public class HTMLFileGenerator {
 		htmlGenerator = new HTMLGenerator();
 	}
 	
-	
+	/**
+	 * Generates the actual file from the datasource and the file name.
+	 * 
+	 * @param data
+	 * @param fileName
+	 */
 	public void generateHTML(String[][] data, String fileName) {
 		Queue<String> elements = new LinkedList<String>();
 		
@@ -33,7 +38,6 @@ public class HTMLFileGenerator {
 		
 		try {
 			html = new PrintWriter(new FileOutputStream(dirPath + "\\" + fileName + ".html"));
-			System.out.println(dirPath + "\\new_table.html");
 		} catch (FileNotFoundException e) {
 			System.out.println("Cannot find HTML file. Exiting.");
 			System.exit(0);

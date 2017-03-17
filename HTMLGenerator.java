@@ -5,7 +5,7 @@ import java.util.Queue;
 /**
  * Creates a HTML file with a table from a given set of 2d array of Strings.
  * 
- * @author c_birkbe
+ * @author Christopher Birkbeck
  *
  */
 public class HTMLGenerator {
@@ -83,17 +83,40 @@ public class HTMLGenerator {
 	/**
 	 * Make the first elements of the HTML page.
 	 * 
-	 * @param elements
+	 * @param html
 	 */
-	private void generateStart(Queue<String> elements) {
-		elements.add("<!DOCTYPE html>");
-		elements.add("<html lang=" + language + ">");
-		elements.add("\t<head>");
-		elements.add("\t\t<title>" + pageTitle + "</title>");
-		elements.add("\t\t<meta charset=" + charset + ">");
-		elements.add("\t</head>");
-		elements.add("\t<body>");
-		elements.add("\t\t<h1>" + textTitle + "</h1>");
+	private void generateStart(Queue<String> html) {
+		html.add("<!DOCTYPE html>");
+		html.add("<html lang=" + language + ">");
+		html.add("\t<head>");
+		html.add("\t\t<title>" + pageTitle + "</title>");
+		html.add("\t\t<meta charset=" + charset + ">");
+		
+		// The following is an internal style sheet that cannot altered by the user.
+		// This will be changed in future iterations.
+		
+		html.add("\t\t<style>");
+		
+		// Makes table heading green and the text white.
+		html.add("\t\tth {");
+		html.add("\t\t\tbackground-color: #4CAF50;");
+		html.add("\t\t\tcolor: white;");
+		html.add("\t\t}");
+		
+		// Adds a gray border at the bottom of the table rows.
+		html.add("\t\ttd {");
+		html.add("\t\t\tborder-bottom: 1px solid #ddd;");
+		html.add("\t\t}");
+		
+		// Creates "zebra-striped" tables for each even row (not counting the header.
+		html.add("tr:nth-child(even){background-color: #f2f2f2}");
+		html.add("\t\t</style>");
+		
+		// End of internal style sheat.
+		
+		html.add("\t</head>");
+		html.add("\t<body>");
+		html.add("\t\t<h1>" + textTitle + "</h1>");
 	}
 	
 	/**
@@ -103,12 +126,14 @@ public class HTMLGenerator {
 	 * @param source
 	 */
 	private void generateTable(Queue<String> html, String[][] source) {
+		// Makes an internal horizonal scroll bar if the page overflows.
+		html.add("\t\t\t<div style=\"overflow-x:auto;\">");
 		html.add("\t\t\t<table>");
 		for (int i = 0; i < source.length; i++) {
 			html.add("\t\t\t\t<tr>");
 			for (int j = 0; j < source[i].length; j++) {
-				// Makes the first row the header with the HTML tags <th>... </th>
-				// Otherwise, uses the regular <tr>...</tr>
+				// Makes the first row the header with the HTML tags <th>... </th>.
+				// Otherwise, uses the regular <tr>...</tr>.
 				if (i == 0) {
 					html.add("\t\t\t\t\t<th>" + source[i][j] + "</th>");
 				} else {
@@ -118,17 +143,18 @@ public class HTMLGenerator {
 			html.add("\t\t\t\t</tr>");
 		}
 		html.add("\t\t\t</table>");
+		html.add("</div>");
 	}
 	
 	/**
 	 * Generates the final elements of the HTML page.
 	 * 
-	 * @param elements
+	 * @param html
 	 */
-	private void generateEnd(Queue<String> elements) {
-		elements.add("\t\t<p>Table generated on " + LocalDate.now() + "</p>");
-		elements.add("\t</body>");
-		elements.add("</html>");
+	private void generateEnd(Queue<String> html) {
+		html.add("\t\t<p>Table generated on " + LocalDate.now() + "</p>");
+		html.add("\t</body>");
+		html.add("</html>");
 	}
 	
 }
